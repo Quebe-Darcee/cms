@@ -9,4 +9,5 @@ export class Message {
     this.subject = subject;
     this.msgText = msgText;
     this.sender = sender;
+  }
 }
