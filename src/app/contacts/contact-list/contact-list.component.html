@@ -5,9 +5,9 @@
       </div>
       <div class="panel-body">
         <cms-contact-item
-          *ngFor="let contactEl of contacts"
-          [contact]="contactEl"
-          (contactSelected)="oncontactSelected(contactEl)"></cms-contact-item>
+          *ngFor="let currentContact of contacts"
+          [contact]="currentContact"
+          (contactSelected)="onSelected(currentContact)"></cms-contact-item>
       </div>
   </div>
 </div>
