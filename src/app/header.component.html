@@ -11,10 +11,13 @@
           <li><a href="#"(click)="onSelected('contacts')">Contacts</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <li appDropdown class="dropdown">
               <a href="#" class="dropdown-toggle" role="button">User <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Placeholder</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Other</a></li>
+                <hr style="margin: 0px;">
+                <li><a href="#">Logout</a></li>
               </ul>
             </li>
         </ul>
