@@ -18,10 +18,10 @@ export class DocumentListComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
-  onSelectedDocument(document: Document) {
+  onSelected(document: Document) {
     this.selectedDocumentEvent.emit(document);
   }
 
