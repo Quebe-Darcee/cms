@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Contact } from './contact.model';
-import { MOCKCONTACTS } from '/MOCKCONTACTS';
+import { MOCKCONTACTS } from './MOCKCONTACTS';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,12 @@ export class ContactService {
   }
 
   getContacts(): Contact[] {
-    return this.ingredients.slice();
+    return this.contacts.slice();
   }
+
   getContact(id:string): Contact {
-    for (let contact of contacts) {
-      if (contact.id == this.id) {
+    for (let contact of this.contacts) {
+      if (contact.id == id) {
         return contact;
       }
     }
