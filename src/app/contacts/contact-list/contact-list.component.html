@@ -1,13 +1,12 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="panel panel-default">
-      <div class="panel-heading" style="font-size: 24px;">Contacts <a class="btn btn-success pull-right">New Contact</a>
+      <div class="panel-heading" style="font-size: 24px;">Contacts <a routerLink="new" class="btn btn-success pull-right">New Contact</a>
       </div>
       <div class="panel-body">
         <cms-contact-item
           *ngFor="let currentContact of contacts"
-          [contact]="currentContact"
-          (contactSelected)="onSelected(currentContact)"></cms-contact-item>
+          [contact]="currentContact"></cms-contact-item>
       </div>
   </div>
 </div>
