@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentEditComponent implements OnInit {
 
+  originalDocument: Document;
+  document: Document;
+  editMode: boolean = false;
+  
   constructor() { }
 
   ngOnInit(): void {
