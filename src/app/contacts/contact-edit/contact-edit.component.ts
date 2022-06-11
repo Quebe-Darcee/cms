@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+import { Contact } from '../contact.model';
+
 
 @Component({
   selector: 'cms-contact-edit',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactEditComponent implements OnInit {
 
+  originalContact: Contact;
+  contact: Contact;
+  editMode: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSubmit(form: NgForm) {
+
+  }
 }

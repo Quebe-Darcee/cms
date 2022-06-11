@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+
 import { NgForm } from '@angular/forms';
 
 import { Document } from '../document.model';
@@ -16,7 +16,6 @@ export class DocumentEditComponent implements OnInit {
   originalDocument: Document;
   document: Document;
   editMode: boolean = false;
-  private subscription: Subscription;
 
   constructor(private documentService: DocumentService,
               private router: Router,
