@@ -56,6 +56,20 @@ export class DocumentService {
     return null;
   }
 
+  storeDocuments() {
+    const docs = JSON.stringify(this.documents);
+    this.http.put(
+      'https://cms-que-default-rtdb.firebaseio.com/documents.json',
+      docs,
+      {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+      }
+    )
+    .subscribe(() => {
+      this.documentListChangedEvent.next(this.documents.slice())
+    })
+  }
+
   addDocument(newDocument: Document) {
     if (!newDocument) {
       return
@@ -65,7 +79,7 @@ export class DocumentService {
     this.documents.push(newDocument);
     var documentsListClone = this.documents.slice();
 
-    this.documentListChangedEvent.next(documentsListClone);
+    this.storeDocuments();
   }
 
   updateDocument(originalDocument: Document, newDocument: Document) {
@@ -79,20 +93,8 @@ export class DocumentService {
     newDocument.id = originalDocument.id;
     this.documents[pos] = newDocument;
     var documentsListClone = this.documents.slice();
-    this.documentListChangedEvent.next(documentsListClone);
+    this.storeDocuments();
   }
-
-  // compareFunction(currentEl, nextEl) {
-  //   if (currentEl.id < nextEl.id) {
-  //     return -1;
-  //   }
-  //   if (currentEl.id > nextEl.id) {
-  //     return 1;
-  //   }
-  //   else {
-  //     return 0;
-  //   }
-  // }
 
   deleteDocument(document: Document) {
      if (!document) {
@@ -104,6 +106,6 @@ export class DocumentService {
      }
      this.documents.splice(pos, 1);
      var documentsListClone = this.documents.slice();
-     this.documentListChangedEvent.next(documentsListClone);
+     this.storeDocuments();
   }
 }
