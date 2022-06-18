@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Document } from './document.model';
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
 import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class DocumentService {
   documentListChangedEvent = new Subject<Document[]>();
   maxDocumentId: number;
 
-  constructor() {
-    this.documents = MOCKDOCUMENTS;
+  constructor(private http: HttpClient) {
+    this.getDocuments();
     this.maxDocumentId = this.getMaxId();
   }
 
@@ -28,6 +29,31 @@ export class DocumentService {
       }
     }
     return maxId;
+  }
+
+  getDocuments(): Document[] {
+    this.http.get(
+      'https://cms-que-default-rtdb.firebaseio.com/documents.json'
+    ).subscribe(
+      (documents: Document[]) => {
+        this.documents = documents;
+        this.maxDocumentId = this.getMaxId();
+        this.documents.sort();
+        this.documentListChangedEvent.next(this.documents.slice());
+      },
+      (error: any) => {
+        console.log(error)
+      });
+      return;
+  }
+
+  getDocument(id:string): Document {
+    for (let document of this.documents) {
+      if (document.id == id) {
+        return document;
+      }
+    }
+    return null;
   }
 
   addDocument(newDocument: Document) {
@@ -56,18 +82,17 @@ export class DocumentService {
     this.documentListChangedEvent.next(documentsListClone);
   }
 
-  getDocuments(): Document[] {
-    return this.documents.slice();
-  }
-
-  getDocument(id:string): Document {
-    for (let document of this.documents) {
-      if (document.id == id) {
-        return document;
-      }
-    }
-    return null;
-  }
+  // compareFunction(currentEl, nextEl) {
+  //   if (currentEl.id < nextEl.id) {
+  //     return -1;
+  //   }
+  //   if (currentEl.id > nextEl.id) {
+  //     return 1;
+  //   }
+  //   else {
+  //     return 0;
+  //   }
+  // }
 
   deleteDocument(document: Document) {
      if (!document) {
