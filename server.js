@@ -8,8 +8,9 @@ var logger = require('morgan');
 
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
-
-// ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ...
+const messageRoutes = require('.server/routes/messages');
+const contactRoutes = require('.server/routes/contacts');
+const documentsRoutes = require('.server/routes/documents');
 
 var app = express(); // create an instance of express
 
@@ -42,6 +43,9 @@ app.use(express.static(path.join(__dirname, 'dist/cms')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
+app.use('/messages', messageRoutes);
+app.use('/contacts', contactRoutes);
+app.use('/documents', documentsRoutes);
 
 app.use(function(req, res, next) {
   res.render('index');
