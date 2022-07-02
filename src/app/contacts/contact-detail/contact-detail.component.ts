@@ -23,6 +23,9 @@ export class ContactDetailComponent implements OnInit {
       this.id = params['id'];
       this.contact = this.contactService.getContact(this.id);
     });
+    this.contactService.contactListChangedEvent.subscribe(() => {
+      this.contact = this.contactService.getContact(this.id);
+    });
   }
 
   onDelete() {

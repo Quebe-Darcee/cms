@@ -29,10 +29,10 @@ export class MessageService {
 
   getMessages(): Message[] {
     this.http.get(
-      'https://cms-que-default-rtdb.firebaseio.com/messages.json'
+      'http://localhost:3000/messages'
     ).subscribe(
-      (messages: Message[]) => {
-        this.messages = messages;
+      (response: any) => {
+        this.messages = response.messages;
         this.maxMessageId = this.getMaxId();
         this.messages.sort();
         this.messageChangedEvent.next(this.messages.slice());
@@ -67,7 +67,26 @@ export class MessageService {
   }
 
   addMessage(message: Message) {
-    this.messages.push(message);
-    this.storeMessages();
-  }
+      if (!message) {
+        return;
+      }
+
+      // make sure id of the new Message is empty
+      message.id = '';
+
+      const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+      // add to database
+      this.http.post<{ message: Message }>('http://localhost:3000/messages',
+        message,
+        { headers: headers })
+        .subscribe(
+          (responseData) => {
+            // add new message to messages
+            this.messages.push(responseData.message);
+            this.messages.sort();
+            this.messageChangedEvent.next(this.messages.slice());
+          }
+        );
+    }
 }

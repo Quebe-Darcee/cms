@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const sequenceGenerator = require('./sequenceGenerator');
 const Message = require('../models/message');
 
 router.get('/', (req, res, next) => {
   Message.find()
+  .populate('sender')
   .then(messages => {
     res.status(200).json({
       message: "Messages fetched successfully!",
@@ -26,6 +28,7 @@ router.post('/', (req, res, next) => {
     id: maxMessageId,
     subject: req.body.subject,
     message: req.body.message,
+    msgText: req.body.msgText,
   });
 
   message.save()
@@ -35,12 +38,12 @@ router.post('/', (req, res, next) => {
         message: createdMessage
       });
     })
-    .catch(error => {
-       res.status(500).json({
-          message: 'An error occurred',
-          error: error
-        });
-    });
+    // .catch(error => {
+    //    res.status(500).json({
+    //       message: 'An error occurred',
+    //       error: error
+    //     });
+    // });
 });
 
 

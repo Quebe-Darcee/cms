@@ -1,19 +1,19 @@
 <div class="row">
   <div class="col-xs-12">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix" style="font-size: 24px;">
-        {{ contact.name }}
-        <br>
-        <img src="{{ contact.imageUrl }}" alt="" class="img-responsive" style="max-height: 50px;">
-        <div class="pull-right">
-          <a [routerLink]="['/contacts/', contact.id, 'edit']" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
-          <a (click)="onDelete()" class="btn btn-danger">Delete</a>
+    <div *ngIf="contact"  class="panel panel-default">
+        <div class="panel-heading clearfix" style="font-size: 24px;">
+          {{ contact.name }}
+          <br>
+          <img src="{{ contact.imageUrl }}" alt="" class="img-responsive" style="max-height: 50px;">
+          <div class="pull-right">
+            <a [routerLink]="['/contacts/', contact.id, 'edit']" class="btn btn-primary" style="margin-right: 5px;">Edit</a>
+            <a (click)="onDelete()" class="btn btn-danger">Delete</a>
+          </div>
         </div>
-      </div>
-      <div class="panel-body">
-        <p style="font-weight: bold;">Email: {{ contact.email }}</p>
-        <p style="font-weight: bold;">Phone: {{ contact.phone }}</p>
-      </div>
+        <div class="panel-body">
+          <p style="font-weight: bold;">Email: {{ contact.email }}</p>
+          <p style="font-weight: bold;">Phone: {{ contact.phone }}</p>
+        </div>
   </div>
 </div>
 <div class="row">

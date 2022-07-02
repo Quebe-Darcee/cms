@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const sequenceGenerator = require('./sequenceGenerator');
 const Contact = require('../models/contact');
 
 router.get('/', (req, res, next) => {
